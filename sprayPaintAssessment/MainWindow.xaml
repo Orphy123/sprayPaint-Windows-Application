@@ -1,0 +1,95 @@
+﻿<Window x:Class="sprayPaintAssessment.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:sprayPaintAssessment"
+        mc:Ignorable="d"
+        Title="Spray Paint App" Height="500" Width="850"
+        Background="#FFF0F0F0">
+    <Window.Resources>
+        <!-- Style for buttons -->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Style for ComboBox -->
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Height" Value="35"/>
+        </Style>
+
+        <!-- Style for Titles -->
+        <Style x:Key="TitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Margin" Value="10,5,0,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+   
+
+    <!-- Style for Slider -->
+        <Style x:Key="SliderStyle" TargetType="Slider">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- Main grid container -->
+    <Grid Margin="10">
+        <!-- Layout is divided into two columns -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left side container for controls -->
+        <StackPanel Grid.Column="0">
+            <Button Content="Load Image" Style="{StaticResource ButtonStyle}" Click="LoadImageButton_Click"/>
+
+            <!-- Title for Color Picker -->
+            <TextBlock Text="Color Picker" Style="{StaticResource TitleStyle}"/>
+            <ComboBox Name="colorPicker" Style="{StaticResource ComboBoxStyle}" SelectionChanged="colorPicker_SelectionChanged">
+                <ComboBoxItem Content="Black"/>
+                <ComboBoxItem Content="Red"/>
+                <ComboBoxItem Content="Green"/>
+                <ComboBoxItem Content="Blue"/>
+                <!-- Additional colors can be added here -->
+            </ComboBox>
+
+            <!-- Title for Density Slider -->
+            <TextBlock Text="Density Control" Style="{StaticResource TitleStyle}"/>
+            <Slider Name="densitySlider" Style="{StaticResource SliderStyle}" Minimum="10" Maximum="200" Value="100"/>
+            <!-- Title for Radius Slider -->
+            <TextBlock Text="Spray Radius" Style="{StaticResource TitleStyle}"/>
+            <Slider Name="radiusSlider" Style="{StaticResource SliderStyle}" Minimum="1" Maximum="20" Value="7" TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+            <Button Content="Toggle Erase Mode" Style="{StaticResource ButtonStyle}" Click="ToggleEraseMode_Click"/>
+            <Button Content="Erase All" Style="{StaticResource ButtonStyle}" Click="EraseAllButton_Click"/>
+            <Button Content="Save Spray" Style="{StaticResource ButtonStyle}" Click="SaveSpray_Click"/>
+            <Button Content="Load Spray" Style="{StaticResource ButtonStyle}" Click="LoadSpray_Click"/>
+        </StackPanel>
+
+        <!-- Right side container for canvas and image -->
+        <Grid Grid.Column="1">
+            <Image Name="imageView" Stretch="Uniform" Panel.ZIndex="0"/>
+            <Canvas Name="paintCanvas" Background="Transparent" Panel.ZIndex="1"
+                    MouseMove="paintCanvas_MouseMove" MouseDown="paintCanvas_MouseDown" MouseUp="paintCanvas_MouseUp">
+            </Canvas>
+        </Grid>
+    </Grid>
+</Window>
