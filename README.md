@@ -1,2 +1,2 @@
-# sprayPaintAssessment
-.NET Assignment
+# sprayPaint Windows App
+.NET Program
